@@ -8,7 +8,7 @@ public final class StudentOperator {
     private StudentOperator() {
     }
 
-    public List<Student> loadStudents() {
+    public static List<Student> loadStudents() {
         List<Student> students = new ArrayList<>();
         for (String cid : AssessmentFeed.getCIDs()) {
             students.add(loadStudent(cid));
@@ -16,20 +16,20 @@ public final class StudentOperator {
         return students;
     }
 
-    public Student loadStudent(String cid) {
+    public static Student loadStudent(String cid) {
         String name = AssessmentFeed.getStudentName(cid);
         String type = AssessmentFeed.getStudentType(cid);
         List<Assessment> assessments = new ArrayList<>();
-        Exam.add(new Exam_Independent(cid));
-        Exam.add(new Exam_AI(cid));
+        assessments.add(new Assessment_Indi(cid));
+        assessments.add(new Assessment_AI(cid));
 
         if ("UG".equals(type)) {
-            return new Student_UG(name, cid, assessments);
+            return new UgStudent(name, cid, assessments);
         }
         if ("MSc".equals(type)) {
-            assessments.add(new Exam_Viva(cid));
-            return new Student_MSc(name, cid, assessments);
+            assessments.add(new Assessment_Viva(cid));
+            return new MscStudent(name, cid, assessments);
         }
-        throw new IllegalArgumentException("unknown student type: " + type);
+        throw new IllegalArgumentException("Unknown student type: " + type);
     }
 }

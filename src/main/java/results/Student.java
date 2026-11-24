@@ -10,7 +10,7 @@ public abstract class Student {
     private final String type;
     private final List<Assessment> assessments;
 
-    protected Student1(String name, String cid, String type, List<Assessment> assessments) {
+    protected Student(String name, String cid, String type, List<Assessment> assessments) {
         if (name == null || cid == null || type == null || assessments == null) {
             throw new IllegalArgumentException("input must not be null");
         }
@@ -38,4 +38,37 @@ public abstract class Student {
 
     protected abstract double weightFor(Assessment assessment);
 
+    public double getOverallWeightedMark() {
+        double weightedTotal = 0.0;
+        double totalWeight = 0.0;
+        for (Assessment assessment : assessments) {
+            double weight = weightFor(assessment);
+            weightedTotal += assessment.getFinalMark() * weight;
+            totalWeight += weight;
+        }
+        if (totalWeight == 0.0) {
+            throw new IllegalStateException("assessments weight is 0");
+        }
+        return weightedTotal / totalWeight;
+    }
+
+    public double getAverageForAiPermission(boolean isAi) {
+        double total = 0.0;
+        int count = 0;
+        for (Assessment assessment : assessments) {
+            if (assessment.isAi() == isAi) {
+                total += assessment.getFinalMark();
+                count++;
+            }
+        }
+        if (count == 0) {
+            throw new IllegalStateException("assessments found for requested category");
+        }
+        return total / count;
+    }
+
+    public boolean meetsAiDiscrepancyCondition() {
+        return getAverageForAiPermission(true) - getAverageForAiPermission(false) >= 20.0;
+    }
 }
+

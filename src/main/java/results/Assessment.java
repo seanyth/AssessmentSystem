@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class Assessment {
-    private String title;
-    private double max_mark;
-    private boolean ai;
-    private List<AssessmentComponent> components;
-    private double ug_weight;
-    private double msc_weight;
+    private final String title;
+    private final double max_mark;
+    private final boolean ai;
+    private final List<AssessmentComponent> components;
+    private final double ug_weight;
+    private final double msc_weight;
 
     protected Assessment(String title, double max_mark, boolean ai,
                          List<AssessmentComponent> components,

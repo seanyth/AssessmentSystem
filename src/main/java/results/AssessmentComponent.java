@@ -1,8 +1,10 @@
-public class ExamContent {
-    private String title;
-    private int value;
+package results;
 
-    public ExamContent(String title, int value) {
+public final class AssessmentComponent {
+    private final String title;
+    private final double value;
+
+    public AssessmentComponent(String title, double value) {
         if (title == null) {
             throw new IllegalArgumentException("title cannot be null");
         }
@@ -14,7 +16,7 @@ public class ExamContent {
         return title;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 }

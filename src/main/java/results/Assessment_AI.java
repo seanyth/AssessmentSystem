@@ -3,11 +3,11 @@ package results;
 import assessments.AssessmentFeed;
 import java.util.Arrays;
 
-public final class Exam_AI extends Exam {
-    private final double functionalityMark;
-    private final double verificationMark;
+public final class Assessment_AI extends Assessment {
+    private final double func;
+    private final double veri;
 
-    public Exam_AI(String cid) {
+    public Assessment_AI(String cid) {
         this(cid,
                 AssessmentFeed.getResult(cid, AssessmentFeed.AI_PROJECT,
                         AssessmentFeed.FUNCTIONALITY_MARK),
@@ -15,21 +15,21 @@ public final class Exam_AI extends Exam {
                         AssessmentFeed.VERIFICATION_MARK));
     }
 
-    private Exam_AI(String cid, double functionalityMark,
-                    double verificationMark) {
+    private Assessment_AI(String cid, double func,
+                          double veri) {
         super(AssessmentFeed.AI_PROJECT, 100.0, true,
                 Arrays.asList(
                         new AssessmentComponent(AssessmentFeed.FUNCTIONALITY_MARK,
-                                functionalityMark),
+                                func),
                         new AssessmentComponent(AssessmentFeed.VERIFICATION_MARK,
-                                verificationMark)),
+                                veri)),
                 0.70, 0.45);
-        this.functionalityMark = functionalityMark;
-        this.verificationMark = verificationMark;
+        this.func = func;
+        this.veri = veri;
     }
 
     @Override
     public double getFinalMark() {
-        return 0.4 * functionalityMark + 0.6 * verificationMark;
+        return 0.4 * func + 0.6 * veri;
     }
 }
